@@ -15,20 +15,45 @@
   <section class="body">
     <div class="wrap">
       <div class="breadcrumbs">
-        Главная > Каталог
+        <div v-for="breadcrumb in breadcrumbs" :key="breadcrumb.id" class="breadcrumb">{{ breadcrumb.name }}</div>
       </div>
-      <h1>Каталог</h1>
+      <h1>{{ pageName }}</h1>
       <div class="category-list">
-        <div class="category-item">
-          <img src="./img/categories/img.png" alt="" class="category-item__img">
+        <div v-for="(item, index) in items" :key="item.id" class="category-item" :class="`item-${index}`">
+          <img :src="require(`./img/categories/${item.imgName}`)" alt="" class="category-item__img">
           <div class="category-item__overlay"></div>
-          <p class="category-item__name">Бакалея</p>
+          <p class="category-item__name">{{ item.name }}</p>
         </div>
       </div>
     </div>
   </section>
 
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        pageName: 'Каталог',
+        breadcrumbs: [
+          {id: 1, name: 'Главная'},
+          {id: 2, name: 'Каталог'}
+        ],
+        items: [
+          {id: 1, name: 'Молоко, сыр, яйцо', imgName: 'milk.png'},
+          {id: 2, name: 'Хлеб', imgName: 'bread.png'},
+          {id: 3, name: 'Фрукты и овощи', imgName: 'fruit.png'},
+          {id: 4, name: 'Бакалея', imgName: 'grocery.png'},
+          {id: 5, name: 'Здоровое питание', imgName: 'helty.png'},
+          {id: 6, name: 'Зоотовары', imgName: 'zoo.png'},
+          {id: 7, name: 'Детское питание', imgName: 'kids.png'},
+          {id: 8, name: 'Мясо, птица, колбаса', imgName: 'meat.png'},
+          {id: 9, name: 'Непродовольственные товары', imgName: 'goods.png'},
+        ]
+      }
+    }
+  }
+</script>
 
 <style>
 * {
@@ -104,15 +129,120 @@ h1 {
   margin-top: 24px;
   padding-top: 5px;
   font-size: 12px;
+  display: flex;
+}
+
+.breadcrumb {
+ margin: 0 28px;
+ position: relative;
+ cursor: pointer;
+}
+
+.breadcrumb:first-child {
+ margin-left: 0;
+}
+
+.breadcrumb::after {
+  content: url(./img/shape.png);
+  position: absolute;
+  right: -34px;
+  top: 0;
+  cursor: auto;
+}
+
+.breadcrumb:last-child::after {
+  content: "";
+}
+
+.category-list {
+  margin-top: 70px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 3%
+
 }
 
 .category-item {
   position: relative;
-  width: 272px;
   height: 200px;
   box-shadow: 1px 2px 4px rgba(112, 192, 91, 0.2);
   border-radius: 4px;
   cursor: pointer;
+  margin-bottom: 40px;
+}
+
+.item-0 {
+grid-row-start: 1;
+grid-column-start: 1;
+
+grid-row-end: 2;
+grid-column-end: 3;
+
+}
+.item-1 {
+grid-row-start: 1;
+grid-column-start: 3;
+
+grid-row-end: 2;
+grid-column-end: 4;
+
+}
+.item-2 {
+grid-row-start: 1;
+grid-column-start: 4;
+
+grid-row-end: 2;
+grid-column-end: 5;
+
+}
+.item-3 {
+grid-row-start: 2;
+grid-column-start: 1;
+
+grid-row-end: 3;
+grid-column-end: 2;
+
+}
+.item-4 {
+grid-row-start: 2;
+grid-column-start: 2;
+
+grid-row-end: 3;
+grid-column-end: 3;
+
+}
+.item-5 {
+grid-row-start: 2;
+grid-column-start: 3;
+
+grid-row-end: 3;
+grid-column-end: 5;
+
+}
+.item-6 {
+grid-row-start: 3;
+grid-column-start: 1;
+
+grid-row-end: 4;
+grid-column-end: 2;
+
+}
+.item-7 {
+grid-row-start: 3;
+grid-column-start: 2;
+
+grid-row-end: 4;
+grid-column-end: 4;
+
+}
+.item-8 {
+grid-row-start: 3;
+grid-column-start: 4;
+
+grid-row-end: 4;
+grid-column-end: 5;
+
 }
 
 .category-item__img {
